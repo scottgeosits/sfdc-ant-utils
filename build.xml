@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Tasks for building and deploying to Salesforce" default="buildANTUtils" basedir="." xmlns:sf="antlib:com.salesforce">
+
+	<!-- Define required jars-->
+        <path id="master-classpath">
+            <pathelement location="${basedir}/lib/ant-salesforce.jar"/>
+            <pathelement location="${basedir}/lib/ant.jar"/>
+            <pathelement location="${basedir}/lib/commons-io-2.4.jar"/>
+            <pathelement location="${basedir}/lib/commons-lang-2.6.jar"/>
+            <pathelement location="${basedir}/lib/commons-logging-1.1.3.jar"/>
+            <pathelement location="${basedir}/lib/gson-2.2.4.jar"/>
+            <pathelement location="${basedir}/lib/httpclient-4.3.5.jar"/>
+            <pathelement location="${basedir}/lib/httpcore-4.3.2.jar"/>
+            <pathelement location="${basedir}/lib/json-20080701.jar"/>
+            <pathelement location="${basedir}/lib/junit-4.5.jar"/>
+        </path>
+
+	<target name="compileANTUtils" description="Builds the JAR file.">
+            <delete dir="${basedir}/deploy/build" />
+            <mkdir dir="${basedir}/deploy/build" />
+
+            <javac destdir="${basedir}/deploy/build" source="1.8" target="1.8">
+		<src path="${basedir}/src"/>
+		<classpath refid="master-classpath" />
+	    </javac>
+	</target>
+
+	<target name="buildANTUtils" depends="compileANTUtils" description="Builds the JAR file.">
+            <delete dir="${basedir}/deploy/jar" />
+            <mkdir dir="${basedir}/deploy/jar" />
+
+	    <jar destfile="${basedir}/deploy/jar/antutils.jar" basedir="${basedir}/deploy/build" includes="com/**" />
+	</target>
+
+</project>

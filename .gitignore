@@ -1,0 +1,7 @@
+build
+classes
+deploy
+*.iml
+.idea
+.project
+.classpath
